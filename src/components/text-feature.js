@@ -9,7 +9,9 @@ export default function TextFeature({
   btnURL = '#',
 }) {
   return (
-    <h1>TextFeature</h1>
+    <Box sx={styles.card}>
+
+    </Box>
   );
 }
 

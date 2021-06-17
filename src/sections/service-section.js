@@ -36,8 +36,18 @@ const data = {
 };
 
 export default function ServiceSection() {
+
+  const handlerClick = (e) => {
+    e.preventDefault();
+
+    setVideoOpening(true)
+
+  }
+
   return (
-    <h1>Service Section</h1>
+    <section sx={{ variant: 'section.services' }}>
+
+    </section>
   );
 }
 
