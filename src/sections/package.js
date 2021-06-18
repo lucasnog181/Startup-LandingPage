@@ -241,6 +241,25 @@ const responsive = {
 
 export default function Package() {
   const { monthly, annual } = packages;
+  const [state, setState] = useState({
+    active: 'monthly',
+    pricingPlan: monthly
+  })
+
+  const handlerPrincingPlan = (plan) => {
+    if (plan == 'annual') {
+      setState({
+        active: 'annual',
+        pricingPlan: annual
+      })
+    } else {
+      setState({
+        active: 'monthly',
+        pricingPlan: monthly
+      })
+    }
+  }
+
 
   const sliderParams = {
     additionalTransfrom: 0,
@@ -266,7 +285,47 @@ export default function Package() {
   };
 
   return (
-    <h1>Package</h1>
+    <section id="pricing" sx={{ variant: 'section.pricing' }}>
+      <Container>
+        <SectionHeader
+          slogan="Pricing Plan"
+          title="Choose you pricing plan"
+        />
+
+        <Flex sx={styles.buttonGroup}>
+          <Box sx={styles.buttonGroupInner}>
+            <button
+              className={state.active === 'monthly' ? 'active' : ''}
+              type="button"
+              aria-label="Monthly"
+              onClick={() => handlerPrincingPlan('monthly')}
+            >
+              Monthly Plan
+            </button>
+
+            <button
+              className={state.active === 'annual' ? 'active' : ''}
+              type="button"
+              aria-label="Annual"
+              onClick={() => handlerPrincingPlan('annual')}
+            >
+              Annual Plan
+            </button>
+          </Box>
+        </Flex>
+
+        <Box sx={styles.pricingWrapper} className="pricing_wrapper">
+          <Carousel {...sliderParams}>
+            {state.pricingPlan.map((packageData) => (
+              <Box sx={styles.pricingItem} key={packageData.id}>
+                <PriceCard data={packageData}/>
+              </Box>
+            ))}
+          </Carousel>
+        </Box>
+
+      </Container>
+    </section>
   );
 }
 
